@@ -1,25 +1,25 @@
-#resource "google_project" "twistlock-gke-3" {
-#  name       = "Twistlock GKE 3"
-#  project_id = "twistlock-gke-3"
-#}
+resource "google_project" "twistlock-gke-3" {
+  name       = "GKE 3"
+  project_id = "gke-33333"
+}
 
-#resource "google_service_account" "gke-sa" {
-#  account_id   = "gke-service-account"
-#  display_name = "GKE Service Account"
-#}
+resource "google_service_account" "gke-sa" {
+  account_id   = "gke-service-account"
+  display_name = "GKE Service Account"
+}
 
-#resource "google_service_account_key" "gke-sa-key" {
-#  service_account_id = google_service_account.gke-sa.name
-#}
+resource "google_service_account_key" "gke-sa-key" {
+  service_account_id = google_service_account.gke-sa.name
+}
 
-#resource "google_service_account_iam_binding" "gke-sa-iam" {
-#  service_account_id = google_service_account.gke-sa.name
-#  role = "role/compute.instances.get"
-#
-#  members = [
-#    "serviceAccount:${google_service_account.gke-sa.email}"
-#  ]
-#}
+resource "google_service_account_iam_binding" "gke-sa-iam" {
+  service_account_id = google_service_account.gke-sa.name
+  role = "role/compute.instances.get"
+
+  members = [
+    "serviceAccount:${google_service_account.gke-sa.email}"
+  ]
+}
 
 resource "google_container_cluster" "gke-cluster-1" {
   name     = "gke-cluster-1"
@@ -66,16 +66,16 @@ resource "google_container_cluster" "gke-cluster-1" {
     tags = ["owner", "gcp1"]
   }
 
-#  private_cluster_config {
-#    enable_private_nodes = "true"
-#    enable_private_endpoint = "false"
-#    master_ipv4_cidr_block = "172.16.0.0/28"
-#  }
+  private_cluster_config {
+    enable_private_nodes = "true"
+    enable_private_endpoint = "false"
+    master_ipv4_cidr_block = "172.16.0.0/28"
+  }
 
-#  ip_allocation_policy {
-#    cluster_ipv4_cidr_block = ""
-#    services_ipv4_cidr_block = ""
-#  }
+  ip_allocation_policy {
+    cluster_ipv4_cidr_block = ""
+    services_ipv4_cidr_block = ""
+  }
 
   timeouts {
     create = "30m"
